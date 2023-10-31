@@ -1,5 +1,7 @@
 # Just Movie Recs
 
+[Live Website](https://jmr-frontend-09ea084b198b.herokuapp.com/)
+
 Just Movie Recs is a web application that allows users to post and discover movie recommendations. It provides a platform for users to share their favorite movies and get recommendations from others.
 
 ## Features
