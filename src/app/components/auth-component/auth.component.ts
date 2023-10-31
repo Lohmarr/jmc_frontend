@@ -5,6 +5,7 @@ import { JwtClientService } from 'src/app/auth/jwtClient.service';
 import { AuthenticationResponse } from 'src/app/auth/models/AuthenticationResponse';
 import { Router } from '@angular/router';
 import { RegisterRequest } from 'src/app/auth/models/RegisterRequest';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-auth',
@@ -16,7 +17,7 @@ export class AuthComponent {
   registerRequest: RegisterRequest = {};
   notice?: string;
 
-  constructor(private jwtService: JwtClientService, private router: Router) {}
+  constructor(private jwtService: JwtClientService, private userService: UserService, private router: Router) {}
 
   signup() {
     if (!this.registerRequest.name || !this.registerRequest.email || !this.registerRequest.password) {
@@ -27,12 +28,7 @@ export class AuthComponent {
     this.jwtService.register(this.registerRequest).subscribe({
       next: (response: AuthenticationResponse) => {
         if (response.token != null && response.token != '') {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('name', response.name || 'ERROR');
-          localStorage.setItem('email', response.email || 'ERROR');
-          localStorage.setItem('id', response.id?.toString() || 'ERROR');
-          this.notice = "";
-          this.router.navigate(['dashboard']);
+          this.notice = "Registration successful. Please login.";
         } else {
           this.notice = "Registration failed";
         }
