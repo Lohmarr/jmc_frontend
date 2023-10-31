@@ -1,0 +1,30 @@
+<div>
+  <div *ngIf="notice" class="notice">
+    {{ notice }}
+  </div>
+  <h2>Update your movie recommendation:</h2>
+  <form (ngSubmit)="updatePost()" class="post-form">
+    <div>
+      <label>Movie Title:</label>
+      <input
+        type="title"
+        [(ngModel)]="updatedPostRequest.title"
+        name="postTitle"
+        required
+      />
+    </div>
+    <div>
+      <label>Movie Url:</label>
+      <input
+        type="text"
+        [(ngModel)]="updatedPostRequest.postUrl"
+        name="postUrl"
+        required
+      />
+    </div>
+    <div class="button-grid">
+      <button class="post-button" type="submit">Submit updated post</button>
+      <button class="post-button" routerLink="/dashboard">Back to Dashboard</button>
+    </div>
+  </form>
+</div>

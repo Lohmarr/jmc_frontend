@@ -1,0 +1,15 @@
+<header>
+  <h1>
+      <a href="/">Just Movie Recs</a>
+  </h1>
+  <nav>
+      <div>
+          <a routerLink="/dashboard" *ngIf="isUserAuthenticated()">Dashboard</a>
+          <a routerLink="/personal-posts" *ngIf="isUserAuthenticated()">My Posts</a>
+          <a routerLink="/" (click)="logout()" *ngIf="isUserAuthenticated()">Logout</a>
+      </div>
+      <div>
+          <a routerLink="/login" *ngIf="!isUserAuthenticated()">Login</a>
+      </div>
+  </nav>
+</header>

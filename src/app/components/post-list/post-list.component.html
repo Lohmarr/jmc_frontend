@@ -1,0 +1,21 @@
+<div>
+  <h2>All Posts</h2>
+  <a routerLink="/add-post">Add post</a>
+  <ul>
+    <li *ngFor="let post of postList">
+      <h3>{{ post.title }}</h3>
+      <a href="{{ post.postUrl }}" target="_blank">{{ post.postUrl }}</a>
+      <p>Posted by: {{ post.posterName }}</p>
+      <p>Posted at: {{ post.postedAt }}</p>
+      <div class="button-grid">
+        <button class="post-button" *ngIf="post.userId === userId" (click)="deletePost(post.id)">
+          Delete Post
+        </button>
+        <button class="post-button" *ngIf="post.userId === userId" [routerLink]="['/update-post', post.id]">
+          Update Post
+        </button>
+      </div>
+    </li>
+    <h4 *ngIf="postList.length == 0">No posts yet!</h4>
+  </ul>
+</div>
