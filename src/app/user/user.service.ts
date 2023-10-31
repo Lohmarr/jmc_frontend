@@ -7,27 +7,34 @@ import { User } from './User';
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8082/api/users';
+  private baseUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // Check if the environment is production or development
+    if (window.location.hostname === 'localhost') {
+      this.baseUrl = 'http://localhost:8082/api/users';
+    } else {
+      this.baseUrl = 'https://jmr-backend-f0da47b49588.herokuapp.com/api/users';
+    }
+  }
 
-  getAllUsers(): Observable<User[]> {
+  getAllUsers() {
     return this.http.get<User[]>(`${this.baseUrl}`);
   }
 
-  getUserById(id: number): Observable<User> {
+  getUserById(id: number) {
     return this.http.get<User>(`${this.baseUrl}/${id}`);
   }
 
-  addUser(user: User): Observable<User> {
+  addUser(user: User) {
     return this.http.post<User>(`${this.baseUrl}`, user);
   }
 
-  updateUser(id: number, user: User): Observable<User> {
+  updateUser(id: number, user: User) {
     return this.http.put<User>(`${this.baseUrl}/${id}`, user);
   }
 
-  deleteUser(id: number): Observable<void> {
+  deleteUser(id: number) {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

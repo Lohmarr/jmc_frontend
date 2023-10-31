@@ -6,18 +6,31 @@ import { AuthenticationRequest } from './models/AuthenticationRequest';
 import { AuthenticationResponse } from './models/AuthenticationResponse';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JwtClientService {
-  private baseUrl = 'http://localhost:8082/api/auth';
+  private baseUrl: string;
 
-constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {
+    // Check if the environment is production or development
+    if (window.location.hostname === 'localhost') {
+      this.baseUrl = 'http://localhost:8082/api/auth';
+    } else {
+      this.baseUrl = 'https://jmr-backend-f0da47b49588.herokuapp.com/api/auth';
+    }
+  }
 
-register(request: RegisterRequest) {
-  return this.http.post<AuthenticationResponse>(`${this.baseUrl}/register`, request);
-}
+  register(request: RegisterRequest) {
+    return this.http.post<AuthenticationResponse>(
+      `${this.baseUrl}/register`,
+      request
+    );
+  }
 
-authenticate(request: AuthenticationRequest) {
-  return this.http.post<AuthenticationResponse>(`${this.baseUrl}/authenticate`, request);
-}
+  authenticate(request: AuthenticationRequest) {
+    return this.http.post<AuthenticationResponse>(
+      `${this.baseUrl}/authenticate`,
+      request
+    );
+  }
 }

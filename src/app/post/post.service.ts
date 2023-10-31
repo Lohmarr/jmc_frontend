@@ -7,12 +7,18 @@ import { Post } from './models/Post';
 @Injectable({
   providedIn: 'root',
 })
-
 export class PostService {
-  private baseUrl = 'http://localhost:8082/api/posts';
+  private baseUrl: string;
   private token = localStorage.getItem('token');
 
-  constructor(private http: HttpClient, private auth: AuthGuard) {}
+  constructor(private http: HttpClient, private auth: AuthGuard) {
+    // Check if the environment is production or development
+    if (window.location.hostname === 'localhost') {
+      this.baseUrl = 'http://localhost:8082/api/posts';
+    } else {
+      this.baseUrl = 'https://jmr-backend-f0da47b49588.herokuapp.com/api/posts';
+    }
+  }
 
   getAllPosts() {
     const headers = this.auth.getHeaders(this.token);
